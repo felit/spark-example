@@ -17,6 +17,7 @@ import java.util.Map;
 public class SparkDemo {
     public static void main(String[] args) {
         JavaSparkContext sc = new JavaSparkContext("local", "test-java-client");
+//        JavaSparkContext sc = new JavaSparkContext("spark://192.168.181.23:7077", "test-java-client");
         JavaRDD<String> textFile = sc.textFile("/home/congsl/apps/storm/dockerfile-repository/nginx/Dockerfile");
         Map<String, Integer> result = textFile.flatMap(new FlatMapFunction<String, Object>() {
             @Override
