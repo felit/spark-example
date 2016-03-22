@@ -1,5 +1,6 @@
 package com.yazuo.spark
 
+import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
@@ -19,9 +20,11 @@ object LocalDemo {
 //    conf.setMaster("spark://127.0.1.1:7077")
     conf.setAppName("local-spark-demo")
     val sc = new SparkContext(conf)
-    print(sc)
-    val textFile = sc.textFile("/data/source/sparkDemo/src/main/java/com/yazuo/spark/LocalDemo.scala")
-    val counts = textFile.flatMap(line => line.split(" ")).map((_, 1)).reduceByKey(_ + _)
+    val textFile:RDD[String] = sc.textFile("/data/source/sparkDemo/src/main/java/com/yazuo/spark/LocalDemo.scala")
+    val counts = textFile.flatMap(line => {
+      println(line)
+      line.split(" ")
+    }).map((_, 1)).reduceByKey(_ + _)
     counts.saveAsTextFile("/data/source/sparkDemo/target/result")
     sc.stop()
   }
