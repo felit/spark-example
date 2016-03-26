@@ -1,16 +1,18 @@
 package com.yazuo.spark.sql
 
+import org.apache.spark.sql.SQLContext
 import java.sql.DriverManager
 
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.JdbcRDD
+
 /**
   */
 object SqlDemo {
   def main(args: Array[String]) {
-    val sc: SparkContext = new SparkContext("local","jdbc-test")
+    val sc: SparkContext = new SparkContext("local", "jdbc-test")
 
-    val sqlContext = new org.apache.spark.sql.SQLContext(sc)
+    val sqlContext = new SQLContext(sc)
     var rdd = new JdbcRDD(
       sc,
       () => {
@@ -20,8 +22,9 @@ object SqlDemo {
       "select merchant_name from trade.merchant where merchant_id >=? and merchant_id <=?", 2, 100, 3,
       r => r.getString(1))
     val resultRdd = rdd.filter(_.contains("雅"))
-
-    println(rdd.filter(_.contains("雅")).count())
+    println(resultRdd.first())
+    println(rdd.filter(_.contains(" 雅")).count())
     sc.stop()
+
   }
 }

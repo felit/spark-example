@@ -44,5 +44,21 @@
             <artifactId>postgresql</artifactId>
             <version>9.4.1208.jre7</version>
         </dependency>
+        <dependency>
+            <groupId>Huawei-Spark</groupId>
+            <artifactId>Spark-SQL-on-HBase</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-hive_2.10</artifactId>
+            <version>1.2.2</version>
+        </dependency>
     </dependencies>
+    <repositories>  <!-- list of other repositories -->
+        <repository>
+            <id>SparkPackagesRepo</id>
+            <url>http://dl.bintray.com/spark-packages/maven</url>
+        </repository>
+    </repositories>
 </project>
